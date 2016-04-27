@@ -1,0 +1,17 @@
+#include<stdio.h>
+ 
+int main()
+{
+        long i,n,k,counter=0,number;
+        scanf("%d%d",&n,&k);
+        for(i=0;i<n;i++)
+        {
+               scanf("%d",&number);
+               if(number%k==0)
+                       counter++;
+        }
+        printf("%d",counter);
+        return 0;
+        
+}
+
