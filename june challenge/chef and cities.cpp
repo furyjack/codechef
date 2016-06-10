@@ -3,12 +3,12 @@
 #include<sstream>
 #include<math.h>
 #include<vector>
-
+ 
 using namespace std;
-
+ 
 int mod=1000000007;
-
-
+ 
+ 
 class bigint
 {
     public:
@@ -30,17 +30,17 @@ class bigint
     {
         for( vector<int>::const_iterator i=v.end()-1;i!=v.begin()-1;i--)
             {
-
+ 
                 cout<<*i;
-            
+ 
             }
     }
-
+ 
    void print_first()
    {
         vector<int>::const_iterator i=v.end()-1;
             cout<<*i;
-
+ 
    }
     void operator=(const bigint& num)
     {
@@ -62,12 +62,12 @@ class bigint
             num/=10;
         }
     }
-
+ 
      bigint& operator*(long long int num)
     {
-
-
-
+ 
+ 
+ 
    long long int temp=0;
     long long int unsigned i;
     for( i=0;i<v.size();i++)
@@ -75,7 +75,7 @@ class bigint
        long long  int x=v[i]*num + temp;
         temp=x/10;
         v[i]=x%10;
-
+ 
     }
     if(temp==0)
         return (*this);
@@ -84,16 +84,16 @@ class bigint
       long long  int x=temp%10;
         v.push_back(x);
         temp=temp/10;
-
+ 
     }
-
+ 
  return(*this);
 }
-
-
+ 
+ 
     bigint& operator*(const bigint& num)
     {
-
+ 
   if(num.v[0]==0 and num.v.size()==1)
   {
       (*this)=0;
@@ -105,32 +105,32 @@ class bigint
    bigint conserve=0;
    for(unsigned int i=0;i<num.v.size();i++)
    {
-
+ 
     conserve=(*this);
     temp=conserve*num.v[i];
-
-
+ 
+ 
     for(unsigned int j=0;j<i;j++)
         temp.multiply_10();
-
+ 
      temp_sum + temp;
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
    }
-
-
-
+ 
+ 
+ 
 (*this)= temp_sum;
 return (*this);
-
-
+ 
+ 
     }
-
-
-
+ 
+ 
+ 
    bigint& operator+(long long int num)
    {
       int temp=0;
@@ -150,13 +150,13 @@ return (*this);
           temp=sum/10;
           num=num/10;
           index++;
-
+ 
       }
       if(temp!=0)
         v.push_back(temp);
      return (*this);
    }
-
+ 
    bigint& operator+(const bigint& num)
    {
        if(num.v.size()>v.size())
@@ -173,21 +173,21 @@ return (*this);
            int sum=num.v[i]+v[i]+temp;
            temp=sum/10;
            v[i]=sum%10;
-
+ 
        }
        if(temp!=0)
         v.push_back(temp);
-
-
+ 
+ 
         return (*this);
        }
-
+ 
        else
        {
             int temp=0;
            for(unsigned int i=0;i<v.size();i++)
            {
-
+ 
                if(i>=num.v.size())
                {
                    int t=v[i];
@@ -200,86 +200,87 @@ return (*this);
                int sum=num.v[i]+v[i]+temp;
                temp=sum/10;
                v[i]=sum%10;
-
-
+ 
+ 
            }
         if(temp!=0)
         v.push_back(temp);
-
+ 
         return(*this);
-
+ 
        }
-
-
+ 
+ 
    }
-
+ 
    void multiply_10()
    {
        v.insert(v.begin(),0);
    }
-
+ 
 };
-
-
-
+ 
+ 
+ 
 int main()
 {
   ios:: sync_with_stdio( false);
   int cities,query;
   cin>>cities;
-
-  int* arr=new int[cities+1];
-
+ 
+  int arr[100002];
+ 
   for(int i=1;i<=cities;i++)
   {
       cin>>arr[i];
   }
-
+ 
   cin>>query;
   for(int i=0;i<query;i++)
   {
       int type;
       cin>>type;
-
+ 
       if(type==1)
       {
           int index;
           cin>>index;
           cin>>arr[index];
-
+ 
       }
       else
       {
-
+ 
           int r;
           cin>>r;
-
+ 
           bigint pro=1;
           int city=1;
-          long int enj=1;
+          uint64_t enj=1;
           while(city<=cities)
           {
               pro*arr[city];
-              enj=(enj%mod)*(arr[city]%mod);
+              enj=((enj%mod)*(arr[city]%mod))%mod;
               city+=r;
-
+ 
           }
-
-
-
+ 
+ 
+ 
        pro.print_first();
        cout<<" " <<enj<<"\n";
-
-
+ 
+ 
       }
-
-
-
-
+ 
+ 
+ 
+ 
   }
-
-
-
-
+ 
+ 
+ 
+ 
   return 0;
 }
+ 
