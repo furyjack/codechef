@@ -1,3 +1,14 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<math.h>
+#include<vector>
+
+using namespace std;
+
+int mod=1000000007;
+
+
 class bigint
 {
     public:
@@ -208,3 +219,67 @@ return (*this);
    }
 
 };
+
+
+
+int main()
+{
+  ios:: sync_with_stdio( false);
+  int cities,query;
+  cin>>cities;
+
+  int* arr=new int[cities+1];
+
+  for(int i=1;i<=cities;i++)
+  {
+      cin>>arr[i];
+  }
+
+  cin>>query;
+  for(int i=0;i<query;i++)
+  {
+      int type;
+      cin>>type;
+
+      if(type==1)
+      {
+          int index;
+          cin>>index;
+          cin>>arr[index];
+
+      }
+      else
+      {
+
+          int r;
+          cin>>r;
+
+          bigint pro=1;
+          int city=1;
+          long int enj=1;
+          while(city<=cities)
+          {
+              pro*arr[city];
+              enj=(enj%mod)*(arr[city]%mod);
+              city+=r;
+
+          }
+
+
+
+       pro.print_first();
+       cout<<" " <<enj<<"\n";
+
+
+      }
+
+
+
+
+  }
+
+
+
+
+  return 0;
+}
