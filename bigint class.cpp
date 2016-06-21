@@ -2,6 +2,10 @@ class bigint
 {
     public:
     vector<int> v;
+    
+    bigint()
+{
+}
     bigint(long long int num)
     {
         if(num==0)
