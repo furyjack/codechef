@@ -1,0 +1,108 @@
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+
+void majority_element(int arr[],int size)
+{
+    unordered_map<int,int> Hash;
+    int max_term=-1;
+    int max_count=-1;
+    for(int i=0;i<size;i++)
+    {
+
+        if(Hash.find(arr[i])!=Hash.end())
+            Hash[arr[i]]++;
+        else
+            Hash.insert(make_pair(arr[i],1));
+
+        if(max_count<Hash[arr[i]])
+        {
+            max_count=Hash[arr[i]];
+            max_term=arr[i];
+        }
+
+
+    }
+
+    if(max_count>size/2)
+        cout<<max_term;
+    else
+        cout<<"NONE";
+
+
+
+
+}
+
+
+
+int mode_array(int*arr,int size)
+{
+    int major_index=0;
+    int count=1;
+
+    for(int i=1;i<size;i++)
+   {
+       if(arr[i]==arr[major_index])
+        count++;
+       else
+        count--;
+
+       if(count==0)
+       {
+           major_index=i;
+           count=1;
+       }
+
+
+   }
+
+   return arr[major_index];
+
+
+}
+
+void majority_element_linear(int*arr,int size)
+{
+
+    int mode=mode_array(arr,size);
+    int count=0;
+    for(int i=0;i<size;i++)
+    {
+
+        if(arr[i]==mode)
+            count++;
+        if(count>size/2)
+        {
+            cout<<mode;
+            return;
+        }
+
+
+    }
+
+    cout<<"NONE";
+
+
+}
+
+
+
+int main()
+{
+    int arr[]={3,3,4,2,4,4,2,4,4};
+    majority_element_linear(arr,9);
+
+
+
+
+
+
+
+
+
+
+
+    return 0;
+}

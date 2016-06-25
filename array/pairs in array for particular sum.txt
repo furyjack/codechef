@@ -1,0 +1,87 @@
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+void find_pairs(int*arr,int size,int sum)
+{
+    sort(arr,arr+12);
+    int fc=0;                   //unique o(nlogn)
+    
+    int sc=size-1;
+
+    while(sc>fc)
+    {
+
+        int temp_sum=arr[sc]+arr[fc];
+        if(temp_sum>sum)
+        {
+            sc--;
+        }
+        else if(temp_sum<sum)
+      {
+            fc++;
+        }
+        else
+        {
+            cout<<arr[fc]<<","<<arr[sc]<<"\n";
+            fc++;
+            sc--;
+
+
+        }
+
+
+    }
+
+
+}
+
+
+
+void find_pairs_hash(int*arr,int size,int sum)
+{
+
+    unordered_set<int> Hash;
+    for(int i=0;i<size;i++)            //non unique o(n)
+    {
+        int temp_sum=sum-arr[i];
+        if(Hash.find(temp_sum)!=Hash.end())
+            cout<<arr[i]<<","<<temp_sum<<"\n";
+
+       if(Hash.find(arr[i])==Hash.end())
+        Hash.insert(arr[i]);
+
+
+
+
+    }
+
+
+
+
+
+
+}
+
+
+
+int main()
+{
+    int arr[]={1,4,2,6,7,5,3,9,2,-3,7,-5};
+    find_pairs(arr,12,4);
+    cout<<"\n";
+
+    find_pairs_hash(arr,12,4);
+
+
+
+
+
+
+
+
+
+
+
+    return 0;
+}

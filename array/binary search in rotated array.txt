@@ -1,0 +1,72 @@
+#include <iostream>
+#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
+
+int binary_search_ra(int*arr,int l,int r,int search)
+{
+    if(l>r)
+        return -1;
+
+    if(l==r and arr[l]==search)
+        return l;
+
+    int mid=l+((r-l)/2);
+
+    if(arr[mid]==search) return mid;
+
+    if(arr[l]<= arr[mid])   //left half is sorted
+    {
+
+
+        if(arr[l]<=search and arr[mid]>search)
+            return binary_search_ra(arr,l,mid-1,search);
+        else
+            return binary_search_ra(arr,mid+1,r,search);
+
+
+    }
+    else     //  right half is sorted
+    {
+
+         if(arr[mid]<search and arr[r]>=search)
+            return binary_search_ra(arr,mid+1,r,search);
+        else
+            return binary_search_ra(arr,l,mid-1,search);
+
+
+
+    }
+
+
+
+}
+
+
+
+int main()
+{
+
+int arr[]={5 ,1,2,3,4};
+
+cout<<"0th element at: "<<binary_search_ra(arr,0,4,arr[0])<<endl;
+
+cout<<"1th element at: "<<binary_search_ra(arr,0,4,arr[1])<<endl;
+
+
+cout<<"2th element at: "<<binary_search_ra(arr,0,4,arr[2])<<endl;
+
+
+cout<<"3th element at: "<<binary_search_ra(arr,0,4,arr[3])<<endl;
+
+
+cout<<"4th element at: "<<binary_search_ra(arr,0,4,arr[4])<<endl;
+
+
+
+
+
+
+
+    return 0;
+}
