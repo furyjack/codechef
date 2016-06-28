@@ -1,6 +1,6 @@
 
 #include<iostream>
-#include<unordered_map>
+
 #include<vector>
 
 using namespace std;
@@ -40,13 +40,13 @@ node* merge(node*head1,node*head2)
 
     if(head1->content>=head2->content)
        {
-           list=head1;
-           head1=head1->next;
+           list=head2;
+           head2=head2->next;
        }
     else
     {
-        list=head2;
-        head2=head2->next;
+        list=head1;
+        head1=head1->next;
     }
 
     temp=list;
@@ -154,6 +154,7 @@ tail=insert_end(tail,1);
 tail=insert_end(tail,6);
 tail=insert_end(tail,4);
 tail=insert_end(tail,7);
+
 
 
 
