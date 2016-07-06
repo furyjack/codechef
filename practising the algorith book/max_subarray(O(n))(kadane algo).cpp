@@ -8,17 +8,17 @@ using namespace std;
 
 
 
-int maxSubArraySum(int a[], int size)
+uint64_t maxSubArraySum(uint64_t a[], int size,uint64_t m)
 {
-   int max_so_far = a[0];
-   int curr_max = a[0];
+   uint64_t max_so_far = a[0]%m;
+   uint64_t curr_max = a[0]%m;
 
 
    for (int i = 1; i < size; i++)
    {
 
-        curr_max = max(a[i], curr_max+a[i]);
-        max_so_far = max(max_so_far, curr_max);
+        curr_max = max(a[i]%m, (curr_max%m+a[i]%m)%m);
+        max_so_far = max(max_so_far%m, curr_max%m);
 
    }
 
@@ -30,8 +30,32 @@ int maxSubArraySum(int a[], int size)
 int main()
 {
   ios:: sync_with_stdio( false);
-  int a[]={5,-2,3,-1,3};
-  cout<<maxSubArraySum(a,5);
+
+int test;
+cin>>test;
+for(int i=0;i<test;i++)
+{
+
+    int no;
+    cin>>no;
+
+    uint64_t*arr=new uint64_t[no];
+
+    uint64_t m;
+    cin>>m;
+
+    for(int j=0;j<no;j++)
+        cin>>arr[j];
+
+
+    cout<<maxSubArraySum(arr,no,m)<<"\n";
+
+
+
+
+
+
+}
 
 
 

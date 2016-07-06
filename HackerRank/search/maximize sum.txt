@@ -1,0 +1,262 @@
+#include<iostream>
+#include<unordered_set>
+using namespace std;
+struct node
+{
+     long long  key;
+     long long  count;
+    node*left;
+    node*right;
+
+};
+
+class BST
+{
+    public:
+    node*root;
+    BST()
+    {
+        root=NULL;
+    }
+
+    private:
+    node* add_help(node*root,long long key)
+{
+    if(root==NULL)
+    {
+        node*r=new node;
+        r->key=key;
+        r->left=r->right=NULL;
+        r->count=1;
+        return r;
+
+
+    }
+
+    if(key>root->key)
+      root->right=add_help(root->right,key);
+    else if(key==root->key)
+    {
+        root->count+=1;
+        return root;
+    }
+    else
+        root->left=add_help(root->left,key);
+
+return root;
+
+}
+
+    public:
+        void add(long long key)
+        {
+
+            root=add_help(this->root,key);
+
+
+        }
+
+    void static inorder(node*root)
+{
+    if(root==NULL)
+        return;
+
+    inorder(root->left);
+    cout<<root->key<<"\n";
+    inorder(root->right);
+
+
+}
+
+    private:
+
+        node* delete_help(node*root,long long key)
+        {
+            if(root==NULL)
+                return NULL;
+            if(key>root->key)
+              root->right=  delete_help(root->right,key);
+            else if(key<root->key)
+               root->left= delete_help(root->left,key);
+            else
+            {
+                if(root->count>1)
+                {
+                    root->count--;
+                    return root;
+                }
+
+                else
+                {
+
+                    if(root->right==NULL)
+                    {
+                        node*temp=root->left;
+                        delete root;
+                        return temp;
+
+                    }
+                    else if(root->left==NULL)
+                    {
+
+                        node*temp=root->right;
+                        delete root;
+                        return temp;
+
+                    }
+
+                    node*temp=minValueNode(root->right);
+                    root->key=temp->key;
+                    root->count=temp->count;
+                    temp->count=1;
+                    root->right= delete_help(root->right,temp->key);
+
+
+
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+    public:
+        void Delete(long long key)
+        {
+
+            root=delete_help(root,key);
+
+        }
+
+static node * minValueNode( node* root)
+{
+    node* current = root;
+
+    /* loop down to find the leftmost leaf */
+    while (current->left != NULL)
+        current = current->left;
+
+    return current;
+}
+
+
+
+
+};
+
+
+node* inOrderSuccesor(node*root,node*succ,long long key)
+{
+    if(root==NULL)
+        return succ;
+    if(root->key==key)
+    {
+        if(root->right)
+        {
+            succ=BST::minValueNode(root->right);
+            return succ;
+        }
+
+        return succ;
+    }
+
+    if(key<root->key)
+      succ=  inOrderSuccesor(root->left,root,key);
+    else
+      succ=  inOrderSuccesor(root->right,succ,key);
+
+return succ;
+
+
+
+}
+
+long long maxsubarray_modulo(long long*arr,int size,long long m)
+{
+    BST tree;
+    unordered_set<long long>mset;
+    long long * sum=new long long[size];
+    sum[0]=arr[0]%m;
+    mset.insert(sum[0]);
+    long long result=sum[0];
+    tree.add(sum[0]);
+    for(int i=1;i<size;i++)
+    {
+        sum[i]=(sum[i-1]%m + arr[i]%m)%m;
+        node*succ=NULL;
+        succ=inOrderSuccesor(tree.root,succ,sum[i]);
+        long long a;
+        if(succ)
+            a=succ->key;
+        else
+            a=0;
+
+        result=max((sum[i] - a + m)%m,result);
+
+        if(mset.find(sum[i])!=mset.end())
+        tree.add(sum[i]);
+
+
+    }
+
+delete sum;
+return result;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+int main()
+{
+
+ios::sync_with_stdio(false);
+
+int test;
+cin>>test;
+for(int i=0;i<test;i++)
+{
+    int n;
+    long long m;
+    cin>>n;
+    cin>>m;
+    long long * arr= new long long[n];
+    for(int j=0;j<n;j++)
+    {
+        cin>>arr[j];
+
+
+
+
+    }
+
+  cout<<maxsubarray_modulo(arr,n,m)<<"\n";
+
+    delete arr;
+
+}
+
+
+
+
+
+}
+
+
+
+
+
+
