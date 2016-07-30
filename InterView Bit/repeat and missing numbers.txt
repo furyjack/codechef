@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<vector>
+#include<iostream>
+using namespace std;
+ 
+
+int main()
+{
+
+	vector<int>A;
+	A.push_back(3);
+	A.push_back(1);
+	A.push_back(2);
+		A.push_back(5);
+			A.push_back(3);
+
+
+	
+
+  auto i=1;
+    auto x1 = A[0]; /* For xor of all the elements in array */
+    auto sum=A[0];
+	auto sum1=1;
+	auto S1=A[0]*A[0];
+	auto S2=1;
+    /* For xor of all the elements from 1 to n+1 */
+     
+    for (i = 1; i< A.size(); i++)
+        {
+          
+            sum+=A[i];
+		    S1+=A[i]*A[i];
+        }
+	for(int i=2;i<=A.size();i++)
+	{
+
+	    sum1+=i;
+		S2*=i*i;
+	}
+
+	
+	auto ele_sum=(S2-S1)/(sum1-sum);
+	
+	
+	
+
+
+	vector<int> c;
+	c.push_back((ele_sum + (sum1-sum))/2);
+	c.push_back(ele_sum-c[0]);
+
+
+
+
+
+
+    
+
+
+
+    
+  
+    cin.get();
+    
+}
+

@@ -1,0 +1,56 @@
+void erase_0(vector<int> &v)
+{
+	bool zero=true;
+	int zero_index=0;
+	bool starts=false;
+	if(v[0]==0)
+		starts=true;
+	for(unsigned int i=0;i<v.size() && zero;i++)
+	{
+
+
+		if(v[i]==0)
+			zero_index=i;
+
+		if(v[i]!=0 && zero)
+			zero=false;
+	}
+
+	if(starts and (zero_index!=0 or (zero_index==0 and v.size()>1 and 
+v[1]!=0)))
+		v.erase(v.begin(),v.begin()+zero_index+1);
+
+
+
+
+}
+
+
+vector<int> Solution::plusOne(vector<int> &A) {
+    
+    erase_0(A);
+
+	
+
+	int carry=((*A.rbegin())+1)/10;
+	A[A.size()-1]=((*A.rbegin())+1)%10;
+	
+
+
+	for(auto i=A.rbegin()+1;i!=A.rend();i++)
+	{
+		int sum=(*i)+carry;
+		carry=sum/10;
+		(*i)=sum%10;
+
+	}
+
+	if(carry!=0)
+		A.insert(A.begin(),carry);
+
+	return A;
+
+
+
+   
+}
